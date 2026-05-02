@@ -1,0 +1,5 @@
+interface:
+  display_name: "Skill Router"
+  short_description: "Automatically choose the right installed skill for a task."
+  default_prompt: "Use the skill router to choose the best installed skill(s) for my task, then proceed."
+

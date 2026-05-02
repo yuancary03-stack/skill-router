@@ -1,0 +1,37 @@
+---
+description: Automatically choose the right project rule, skill, or workflow for coding, debugging, UI/UX, prototypes, reviews, planning, and verification.
+globs: ["**/*"]
+alwaysApply: false
+---
+
+# Skill Router
+
+Use this rule when a request should be routed to the best available skill, project rule, or workflow before work begins.
+
+## Routing Workflow
+
+1. Identify the task type: coding, debugging, UI/UX, prototype, Figma handoff, planning, review, verification, docs, or mixed.
+2. Respect explicitly named rules or skills first.
+3. Choose one primary workflow and at most two supporting workflows.
+4. Do not load or apply every rule just because it exists.
+5. If the right workflow is unavailable, proceed with normal Cursor behavior and state the assumption briefly.
+
+## Routing Map
+
+- General coding, implementation, refactoring: engineering workflow or `using-superpowers`.
+- Test-first implementation: `test-driven-development`.
+- Bugs, broken tests, runtime failures: `systematic-debugging`.
+- Large ambiguous tasks: `writing-plans`, then `executing-plans`.
+- Final checks: `verification-before-completion`.
+- Code review: `requesting-code-review`.
+- Applying review feedback: `receiving-code-review`.
+- Conservative engineering judgment: `karpathy-guidelines`.
+- Web/mobile UI, dashboards, components, accessibility, visual polish: `ui-ux-pro-max`.
+- Narrow visual design: `design`, `design-system`, `ui-styling`, `brand`, `banner-design`, or `slides`.
+- High-fidelity HTML prototypes, interactive demos, animation demos, design variants: `huashu-design`.
+- Figma URLs or design-to-code: Figma workflow first.
+
+## Communication
+
+Before starting substantial work, state the selected workflow in one short sentence. Then execute the task.
+
