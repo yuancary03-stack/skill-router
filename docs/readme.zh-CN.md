@@ -2,7 +2,7 @@
 
 Skill Router 是一个小型“技能路由器”：在开始任务前，先判断应该使用哪个已安装 skill、规则或工作流。
 
-它的目标是节省上下文：优先选择 1 个主 skill，只在确实有帮助时增加辅助 skill，避免一次性加载所有 skill。
+它的目标是节省上下文：按能力而不是固定名称路由，优先选择 1 个主 skill，只在确实有帮助时增加辅助 skill，避免一次性加载所有 skill。
 
 ## Codex 安装
 
@@ -35,13 +35,17 @@ New-Item -ItemType Directory -Force .\.cursor\rules
 Copy-Item .\cursor\skill-router.mdc .\.cursor\rules\skill-router.mdc
 ```
 
-## 默认路由
+## 通用路由
 
-- 写代码、重构：`using-superpowers`
-- 测试先行开发：`test-driven-development`
-- Bug 和异常行为：`systematic-debugging`
-- UI/UX 和视觉优化：`ui-ux-pro-max`
-- 高保真 HTML 原型：`huashu-design`
-- 工程判断和避免过度设计：`karpathy-guidelines`
-- 完成前验证：`verification-before-completion`
+Skill Router 不要求 skill 必须叫某个固定名字。它会优先查看 skill 元数据里的 `name` 和 `description`，按能力关键词选择：
 
+- 写代码：code、implement、refactor、development
+- 测试：test-driven、TDD、unit tests
+- 调试：debug、bug、failing test、runtime error
+- 计划：plan、roadmap、decomposition
+- 验证：verify、QA、validation、completion
+- UI/UX：UI、UX、layout、accessibility、component
+- 原型：prototype、demo、animation、motion
+- GitHub/CI：GitHub、PR、Actions、CI、checks
+
+`using-superpowers`、`systematic-debugging`、`ui-ux-pro-max`、`huashu-design` 等只是别名和示例，不是硬性要求。

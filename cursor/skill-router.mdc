@@ -1,5 +1,5 @@
 ---
-description: Automatically choose the right project rule, skill, or workflow for coding, debugging, UI/UX, prototypes, reviews, planning, and verification.
+description: Universal router for choosing the right project rule, skill, or workflow by capability before coding, debugging, UI/UX, prototype, review, planning, deployment, GitHub/CI, or verification work.
 globs: ["**/*"]
 alwaysApply: false
 ---
@@ -10,28 +10,43 @@ Use this rule when a request should be routed to the best available skill, proje
 
 ## Routing Workflow
 
-1. Identify the task type: coding, debugging, UI/UX, prototype, Figma handoff, planning, review, verification, docs, or mixed.
+1. Identify the capabilities required: coding, debugging, testing, review, planning, UI/UX, visual design, prototype, docs, data, browser automation, deployment, GitHub/CI, security, Figma/design handoff, or mixed.
 2. Respect explicitly named rules or skills first.
-3. Choose one primary workflow and at most two supporting workflows.
-4. Do not load or apply every rule just because it exists.
-5. If the right workflow is unavailable, proceed with normal Cursor behavior and state the assumption briefly.
+3. Inspect available rule/skill names and descriptions when needed.
+4. Choose one primary workflow and at most two supporting workflows.
+5. Do not load or apply every rule just because it exists.
+6. If the right workflow is unavailable, proceed normally and state the assumption briefly.
 
-## Routing Map
+## Capability Routing
 
-- General coding, implementation, refactoring: engineering workflow or `using-superpowers`.
-- Test-first implementation: `test-driven-development`.
-- Bugs, broken tests, runtime failures: `systematic-debugging`.
-- Large ambiguous tasks: `writing-plans`, then `executing-plans`.
-- Final checks: `verification-before-completion`.
-- Code review: `requesting-code-review`.
-- Applying review feedback: `receiving-code-review`.
-- Conservative engineering judgment: `karpathy-guidelines`.
-- Web/mobile UI, dashboards, components, accessibility, visual polish: `ui-ux-pro-max`.
-- Narrow visual design: `design`, `design-system`, `ui-styling`, `brand`, `banner-design`, or `slides`.
-- High-fidelity HTML prototypes, interactive demos, animation demos, design variants: `huashu-design`.
-- Figma URLs or design-to-code: Figma workflow first.
+Use capability matches before hard-coded names:
+
+- Coding and implementation: code, implement, refactor, development.
+- Test-first work: test-driven, TDD, unit tests, regression tests.
+- Debugging: debug, bug, failing test, runtime error, broken behavior.
+- Planning: plan, roadmap, milestones, decomposition.
+- Verification: verify, QA, validation, completion.
+- Review: review, PR comments, critique, risk scan.
+- UI/UX: UI, UX, layout, accessibility, dashboard, component.
+- Visual design: brand, visual, style, design system, banner.
+- Prototypes: prototype, demo, animation, HTML prototype, motion.
+- Figma/design handoff: Figma, node, design-to-code.
+- Documents/data/slides: document, spreadsheet, presentation, deck.
+- Browser automation: browser, screenshot, Playwright, web test.
+- Deployment: deploy, hosting, Vercel, Netlify, Cloudflare, Render.
+- GitHub/CI: GitHub, PR, Actions, CI, checks, gh.
+- Security: security, threat model, best practices.
+- Skill/plugin authoring: create skill, edit skill, plugin.
+
+## Known Aliases
+
+These are examples only, not requirements: `using-superpowers`, `test-driven-development`, `systematic-debugging`, `verification-before-completion`, `ui-ux-pro-max`, `huashu-design`, `karpathy-guidelines`, `gh-fix-ci`, `gh-address-comments`.
+
+## Scoring
+
+When several workflows match, choose by explicit user request, strongest metadata match, narrower specialist over broad generalist, package entry skill over sub-skill, then lower context cost.
 
 ## Communication
 
-Before starting substantial work, state the selected workflow in one short sentence. Then execute the task.
+Before starting substantial work, state the selected capability/workflow in one short sentence. Then execute the task.
 

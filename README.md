@@ -2,7 +2,7 @@
 
 **One entry skill that helps an AI agent choose the right skill before it starts working.**
 
-Skill Router is a lightweight meta-skill for people who install many AI coding/design skills and do not want to manually decide which one to invoke every time. It reads the task, chooses the smallest useful skill set, and avoids loading every skill into context.
+Skill Router is a lightweight meta-skill for people who install many AI coding/design skills and do not want to manually decide which one to invoke every time. It reads the task, matches the required capabilities, chooses the smallest useful skill set, and avoids loading every skill into context.
 
 ```text
 $skill-router Build a settings page, polish the UI, and verify it before delivery.
@@ -14,6 +14,7 @@ Modern agent setups can quickly grow into a toolbox of specialized skills: codin
 
 Skill Router gives you a single front door:
 
+- Route by capability, not by a fixed personal skill list.
 - Choose one primary skill for the task.
 - Add supporting skills only when they materially help.
 - Avoid context bloat from loading everything.
@@ -64,20 +65,26 @@ Copy-Item .\cursor\skill-router.mdc .\.cursor\rules\skill-router.mdc
 
 Then reference it in prompts or let Cursor apply it as a project rule.
 
-## Routing Defaults
+## Universal Routing
 
-| Task | Default route |
+Skill Router does not require your skills to have specific names. It first looks at each available skill's metadata, especially `name` and `description`, and routes by capability.
+
+| Capability | Metadata to look for |
 | --- | --- |
-| Coding, implementation, refactoring | `using-superpowers` |
-| Test-first feature work | `test-driven-development` |
-| Bugs, failing tests, broken behavior | `systematic-debugging` |
-| Large or ambiguous tasks | `writing-plans` -> `executing-plans` |
-| UI/UX, dashboards, components, visual polish | `ui-ux-pro-max` |
-| High-fidelity HTML prototypes and animation demos | `huashu-design` |
-| Conservative engineering judgment | `karpathy-guidelines` |
-| Final checks before delivery | `verification-before-completion` |
+| Coding and implementation | code, implement, refactor, development |
+| Test-first work | test-driven, TDD, unit tests |
+| Debugging | debug, bug, failing test, runtime error |
+| Planning | plan, roadmap, decomposition |
+| Verification | verify, QA, validation, completion |
+| Review | review, PR comments, critique |
+| UI/UX | UI, UX, layout, accessibility, component |
+| Prototypes | prototype, demo, animation, motion |
+| Figma/design handoff | Figma, node, design-to-code |
+| GitHub/CI | GitHub, PR, Actions, CI, checks |
+| Security | security, threat model, best practices |
+| Documents/data/slides | document, spreadsheet, presentation |
 
-You can edit the routing table in `SKILL.md` to match your own installed skills.
+Known names such as `using-superpowers`, `systematic-debugging`, `ui-ux-pro-max`, or `huashu-design` are treated as aliases and examples, not hard requirements. You can edit `SKILL.md` to add your own aliases.
 
 ## Example Prompts
 
@@ -127,4 +134,3 @@ skill-router/
 ## License
 
 MIT
-

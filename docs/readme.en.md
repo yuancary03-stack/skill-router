@@ -2,7 +2,7 @@
 
 Skill Router chooses the best installed skill, rule, or workflow for a request before doing the work.
 
-It is designed to save context: choose one primary skill, add only useful supporting skills, and avoid loading every skill at once.
+It is designed to save context: route by capability, choose one primary skill, add only useful supporting skills, and avoid loading every skill at once.
 
 ## Install For Codex
 
@@ -35,13 +35,17 @@ New-Item -ItemType Directory -Force .\.cursor\rules
 Copy-Item .\cursor\skill-router.mdc .\.cursor\rules\skill-router.mdc
 ```
 
-## Routing Defaults
+## Universal Routing
 
-- Coding and refactoring: `using-superpowers`
-- Test-first work: `test-driven-development`
-- Bugs and broken behavior: `systematic-debugging`
-- UI/UX and visual polish: `ui-ux-pro-max`
-- High-fidelity HTML prototypes: `huashu-design`
-- Engineering judgment: `karpathy-guidelines`
-- Final checks: `verification-before-completion`
+Skill Router does not require fixed skill names. It looks for capability words in skill metadata:
 
+- Coding: code, implement, refactor, development
+- Testing: test-driven, TDD, unit tests
+- Debugging: debug, bug, failing test, runtime error
+- Planning: plan, roadmap, decomposition
+- Verification: verify, QA, validation, completion
+- UI/UX: UI, UX, layout, accessibility, component
+- Prototypes: prototype, demo, animation, motion
+- GitHub/CI: GitHub, PR, Actions, CI, checks
+
+Known skill names are aliases and examples, not requirements.

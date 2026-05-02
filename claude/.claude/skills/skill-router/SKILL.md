@@ -1,46 +1,65 @@
 ---
 name: skill-router
-description: Route a user request to the best available skill, agent, rule, or workflow before doing the work. Use when the user asks to automatically choose skills, decide which expert mode applies, use all available abilities intelligently, or handle mixed coding/design/debugging/review/planning/prototype/document tasks without manually naming every skill.
+description: Universal skill router for choosing the best available skill, agent, rule, mode, or workflow before doing a task. Use when the user asks to automatically choose skills, route a request, use available abilities intelligently, decide which expert mode applies, or handle mixed coding/design/debugging/review/planning/prototype/document tasks without manually naming every skill. Works by capability discovery first, known aliases second.
 ---
 
 # Skill Router
 
 ## Overview
 
-Choose the smallest useful set of available skills or workflows for the task. Prefer one primary skill and at most two supporting skills unless the user explicitly asks for a broader workflow.
+Route by capability, not by a fixed personal skill list. Choose the smallest useful set of available skills or workflows for the task, load only those instructions, then continue with the work.
 
 ## Routing Workflow
 
-1. Identify the task type: coding, debugging, UI/UX, high-fidelity prototype, document, spreadsheet, presentation, Figma/design handoff, planning, review, or mixed.
-2. Honor any skill, rule, mode, or agent the user explicitly named first.
-3. Select the best primary workflow using the map below.
-4. Add supporting workflows only when they materially change the result.
-5. Do not load every skill. Read or activate only the chosen skill bodies.
-6. If a skill is installed on disk but not automatically loaded, read its instructions manually and mention that the client may need a restart or install step for automatic activation.
+1. Identify the task's capabilities: coding, debugging, testing, review, planning, UI/UX, visual design, prototype, docs, data, browser automation, deployment, GitHub/CI, security, Figma/design handoff, skill creation, or mixed.
+2. Honor any explicitly named skill, rule, mode, or agent first.
+3. Inspect available metadata when needed. Prefer names and descriptions; do not read every skill body.
+4. Pick one primary workflow by capability match. Add at most two supporting workflows when they materially help.
+5. Read or activate only the chosen instruction bodies.
+6. If no skill fits, say so briefly and proceed normally.
 
-## Primary Routing Map
+## Capability Routing
 
-- General coding, implementation, refactoring, branch work: use the engineering workflow or `using-superpowers` if installed.
-- Test-first implementation: use `test-driven-development`.
-- Bugs and broken runtime behavior: use `systematic-debugging`.
-- Large or ambiguous work needing sequencing: use `writing-plans`, then `executing-plans`.
-- Final checks before claiming completion: use `verification-before-completion`.
-- Code review: use review workflow, `requesting-code-review`, or the client-native review mode.
-- Applying review comments: use `receiving-code-review`.
-- Conservative engineering judgment and avoiding overcomplication: use `karpathy-guidelines`.
-- Web/mobile UI, components, dashboards, landing pages, accessibility, visual polish: use `ui-ux-pro-max` or the closest UI/UX skill.
-- High-fidelity HTML prototypes, interactive demos, animation demos, design variants, visual direction exploration: use `huashu-design`.
-- Figma URLs or design-to-code handoff: use the Figma workflow first.
-- Creating or editing skills: use the skill creation workflow.
+Use this generic map first. The examples are aliases, not requirements.
+
+| Capability | Look for metadata mentioning | Example aliases |
+| --- | --- | --- |
+| Coding and implementation | code, implement, refactor, development | engineering workflow, `using-superpowers` |
+| Test-first work | test-driven, TDD, unit tests | `test-driven-development` |
+| Debugging | debug, bug, failing test, error, broken | `systematic-debugging` |
+| Planning | plan, roadmap, decomposition | `writing-plans`, `executing-plans` |
+| Verification | verify, QA, validation, completion | `verification-before-completion` |
+| Review | review, PR comments, critique | review workflow |
+| UI/UX | UI, UX, layout, accessibility, component | UI/UX skill |
+| Visual design | brand, visual, style, design system | design skill |
+| Prototypes | prototype, demo, animation, motion | prototype skill |
+| Figma/design handoff | Figma, node, design-to-code | Figma workflow |
+| Documents/data/slides | document, spreadsheet, presentation | document/data/deck workflow |
+| Browser automation | browser, screenshot, Playwright | browser workflow |
+| Deployment | deploy, hosting, Vercel, Netlify | deployment workflow |
+| GitHub/CI | GitHub, PR, Actions, CI, checks | GitHub workflow |
+| Security | security, threat model, best practices | security workflow |
+| Skill authoring | create skill, edit skill, plugin | skill/plugin workflow |
+
+## Scoring
+
+When several skills match, choose by:
+
+1. Explicit user request.
+2. Strongest metadata match to the task.
+3. Narrower specialist over broad generalist.
+4. Entry/router skill over sub-skill when the package already has its own router.
+5. Lower context cost when two choices are otherwise equivalent.
 
 ## Mixed Requests
 
-- UI implementation: route design decisions through the UI/UX skill, then execute with the engineering workflow.
-- High-fidelity prototype with motion: use the prototype/design skill as primary and verify interactions before delivery.
-- Debugging a UI: fix behavior first with debugging, then polish visuals if requested.
-- Ambiguous product idea: brainstorm or plan first, then route to implementation or design.
+- UI implementation: choose UI/UX for design decisions and engineering for code execution.
+- Debugging a UI: fix behavior first; add visual polish only if requested.
+- Prototype with motion: choose prototype/motion as primary; add verification before delivery.
+- Ambiguous product idea: choose planning or brainstorming first.
+- CI failure: choose GitHub/CI or debugging first, then verification.
 
 ## Communication
 
-Briefly name the chosen skill or workflow and why, then continue into the actual work. If no installed skill fits, say so once and proceed normally.
+Briefly name the selected capability and workflow, then continue into the work. Do not turn routing into a long discussion unless the user only asked which skill to use.
 
